@@ -60,7 +60,8 @@
           </p>
           <p>
               Example using <code>curl</code>:
-              <pre>curl -X POST -H "X-Api-Key: YOUR_API_KEY" -H "Content-Type: application/json" -d '{"amount": 100}' http://localhost:8080/generate_payment_address</pre>
+              <pre>curl -X POST -H "X-Api-Key: YOUR_API_KEY" -H "Content-Type: application/json" -d "{\"amount\": 100}" http://localhost:8080/generate_payment_address
+</pre>
           </p>
           <p>
               The response will contain the new payment address and its validity period.
