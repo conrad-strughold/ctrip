@@ -1,10 +1,6 @@
 # ctrip
 cTrip Crypto Payment Gateway: Flask-based solution for Crypto payments. Features include automatic payment checking, Securely stores data in a JSON database. Ideal for businesses embracing cryptocurrency transactions.
 
-![Project Image](ctrip.png)
-
-![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
-
 ## Overview
 
 The cTrip Crypto Payment Gateway is a Flask-based solution for integrating cryptocurrency payments, specifically leveraging Ethereum blockchain technology. This project simplifies the generation of unique payment addresses, automatic payment checking, and admin notifications.
@@ -19,7 +15,7 @@ The cTrip Crypto Payment Gateway is a Flask-based solution for integrating crypt
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/rakibmia7254/ctrip.git`
+1. Clone the repository: `git clone https://github.com/conrad-strughold/ctrip.git`
 2. Install dependencies: `pip install -r requirements.txt`
 3. Configure Ethereum settings, Infura API, and admin addresses in the code.
 4. Run the Flask application: `python main.py`
