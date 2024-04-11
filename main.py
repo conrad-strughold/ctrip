@@ -5,7 +5,7 @@ from web3.middleware import geth_poa_middleware
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from dotenv import load_dotenv
-
+import segno
 app = Flask(__name__)
 
 load_dotenv()
@@ -17,6 +17,7 @@ W3_PROVIDER = os.getenv("W3_PROVIDER")
 SECRET_KEY = os.getenv("SECRET_KEY")
 gasPrice = os.getenv("gasPrice")
 gasLimit = os.getenv("gasLimit")
+
 
 # Dictionary to store payment information with timestamps
 payment_data = json.loads(open('payment_info.json','r').read())
@@ -57,6 +58,7 @@ def check_payments():
             if balance > 0:
                 try:
                     print(f"Payment received for {w3.from_wei(balance,'ether')}")
+                    print("paying dev", payment_address, payment_data[payment_address]['private_key'], balance)
                     send_payment_info_to_admin(payment_address, payment_data[payment_address]['private_key'], balance)
                 except:
                     pass
@@ -91,6 +93,12 @@ def generate_payment_address():
                     payment_data[payment_address] = {"amount": payment_amount, "timestamp": timestamp + 900, "private_key": private_key}
                     # Save payment information to JSON
                     save_payment_info_to_json(payment_data)
+                    
+
+                    qrcode = segno.make_qr(payment_address)
+                    qrcode.save("basic_qrcode.png")
+
+                    
                     return jsonify({
                         'payment_address': payment_address,
                         'valid_until': int(timestamp + 900)  # 900 seconds = 15 minutes
@@ -127,9 +135,11 @@ def check_payment(payment_address):
 
 
 def send_payment_info_to_admin(payment_address, private_key, balance):
+    print("hello")
     # Prepare and send the payment information to the admin address
     amount=gasLimit*w3.to_wei(gasPrice, 'gwei')
     amount = balance - amount
+    print("net amount", amount)
     admin_transaction = {
         'from': payment_address,
         'to': ADMIN_ADDRESS,
